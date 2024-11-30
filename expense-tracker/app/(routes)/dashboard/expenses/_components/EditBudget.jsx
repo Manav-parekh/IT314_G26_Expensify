@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button"; // Updated import path
+import { Button } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/button";
 import { PenBox } from "lucide-react";
 import {
   Dialog,
@@ -9,12 +9,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"; // Updated import path
+} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/dialog"; // Updated import path
 import EmojiPicker from "emoji-picker-react";
 import { useUser } from "@clerk/nextjs";
-import { Input } from "@/components/ui/input"; // Updated import path
-import { db } from "@/utils/dbConfig"; // Updated import path
-import { Budgets } from "@/utils/schema"; // Updated import path
+import {db} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/dbConfig.jsx";
+import { Budgets,Expenses } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/schema.jsx"; 
 import { eq } from "drizzle-orm";
 import { toast } from "sonner";
 
