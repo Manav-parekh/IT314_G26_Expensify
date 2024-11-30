@@ -12,22 +12,15 @@ function AddExpenses({ budgetId, user, refreshData }) {
   const [paymentMethod, setPaymentMethod] = useState('Cash');
   const [currency, setCurrency] = useState('USD');
 
-  // Shared conversion rates between components
   const CURRENCY_CONVERSIONS = {
-    'USD': 1,      // 1 USD = 1 USD
-    'EUR': 1/0.92, // 1 EUR ≈ 1.087 USD
-    'GBP': 1/0.81, // 1 GBP ≈ 1.235 USD
-    'INR': 1/82.5, // 1 INR ≈ 0.012 USD
-    'JPY': 1/150.0 // 1 JPY ≈ 0.0067 USD
+    'USD': 1,      
+    'EUR': 1/0.92, 
+    'GBP': 1/0.81, 
+    'INR': 1/82.5, 
+    'JPY': 1/150.0 
   };
 
-  const PAYMENT_METHODS = [
-    'Cash',
-    'Credit',
-    'Debit',
-    'UPI',
-    'Cheque'
-  ];
+  const PAYMENT_METHODS = ['Cash', 'Credit', 'Debit', 'UPI', 'Cheque'];
 
   const addNewExpense = async () => {
     if (!name || !amount || !paymentMethod || !currency) {
@@ -36,15 +29,21 @@ function AddExpenses({ budgetId, user, refreshData }) {
     }
 
     try {
+      // Log the input amount and currency for debugging
+      console.log("Adding expense: ", { name, amount, currency });
+
       // Convert the entered amount to USD based on the selected currency
       const amountInUSD = Number(amount) * CURRENCY_CONVERSIONS[currency];
       
-      // Convert to cents and round to nearest cent
-      const amountInCents = Math.round(amountInUSD * 100);
+      // Use the amount in USD directly as an integer
+      const amountInInteger = Math.round(amountInUSD);
 
+      console.log(`Amount in USD: ${amountInUSD}, Amount as Integer: ${amountInInteger}`);
+
+      // Insert into the database
       const result = await db.insert(Expenses).values({
         name: name,
-        amount: amountInCents,  // Store in cents (integer)
+        amount: amountInInteger,  // Store as integer (USD)
         budgetId: Number(budgetId),
         createdBy: user?.primaryEmailAddress?.emailAddress,
         createdAt: moment().toDate(),

@@ -43,12 +43,9 @@ function ExpenseListTable({ expensesList = [], refreshData }) {
     });
   };
 
-  const formatAmount = (amountInCents) => {
-    // Convert from cents to dollars
-    const amountInUSD = amountInCents / 100;
-    
-    // Convert USD to selected currency
-    const convertedAmount = amountInUSD * conversionRates[currency];
+  const formatAmount = (amount) => {
+    // Convert from base unit (no need to divide by 100)
+    const convertedAmount = amount * conversionRates[currency]; // Convert the amount to selected currency
     
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -56,6 +53,7 @@ function ExpenseListTable({ expensesList = [], refreshData }) {
       minimumFractionDigits: 2,
     }).format(convertedAmount);
   };
+  
 
   const handleCurrencyChange = (event) => {
     setCurrency(event.target.value);

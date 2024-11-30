@@ -22,28 +22,8 @@ function CreateBudget({ refreshData }) {
   const [openEmojiPicker, setEmojiPicker] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
-  const [currency, setCurrency] = useState("INR"); // Default currency is Rupee
   const [openDialog, setOpenDialog] = useState(false);
   const { user } = useUser();
-
-  // Currency conversion rates
-  const currencyRates = {
-    INR: 82, // Example: 1 USD = 82 INR
-    USD: 1,  // Base currency
-    EUR: 0.92, // Example: 1 USD = 0.92 EUR
-    GBP: 0.81, // Example: 1 USD = 0.81 GBP
-    JPY: 145.75, // Example: 1 USD = 145.75 JPY
-  };
-
-  // Function to convert the amount to USD
-  const convertToUSD = (amount, currency) => {
-    if (!currencyRates[currency]) {
-      toast("Unsupported currency selected.");
-      return amount;
-    }
-    return Math.round(amount / currencyRates[currency]); // Round to nearest integer
-  };
-  
 
   // Function to handle budget creation
   const onCreateBudget = async () => {
@@ -52,16 +32,24 @@ function CreateBudget({ refreshData }) {
       return;
     }
 
+    console.log("Form Values:", { name, amount, emojiIcon });
+
+    if (!name || !amount || isNaN(amount) || amount <= 0) {
+      toast("Please enter valid budget name and amount.");
+      return;
+    }
+
     try {
-      const convertedAmount = convertToUSD(parseFloat(amount), currency);
       const result = await db.insert(Budgets)
         .values({
           name: name,
-          amount: convertedAmount, // Store the amount in USD
+          amount: parseFloat(amount), // Store the amount directly
           createdBy: user?.primaryEmailAddress?.emailAddress,
           icon: emojiIcon,
         })
         .returning({ insertedId: Budgets.id });
+
+      console.log("Insert Result:", result);
 
       if (result) {
         refreshData();
@@ -126,28 +114,14 @@ function CreateBudget({ refreshData }) {
                 <h2 className="font-medium my-1 text-lg text-center">Budget Amount</h2>
                 <Input
                   type="number"
-                  placeholder="e.g. 5000$"
+                  placeholder="e.g. 5000"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="bg-[#333] text-white border-[#555] focus:ring-2 focus:ring-white placeholder-gray-400 w-full p-3 rounded-md"
                 />
               </div>
-              <div className="mt-4">
-                <h2 className="font-medium my-1 text-lg text-center">Currency</h2>
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                  className="bg-[#333] text-white border-[#555] focus:ring-2 focus:ring-white placeholder-gray-400 w-full p-3 rounded-md"
-                >
-                  <option value="INR">₹ Rupee (INR)</option>
-                  <option value="USD">Dollar (USD)</option>
-                  <option value="EUR">Euro (EUR)</option>
-                  <option value="GBP">Pound Sterling (GBP)</option>
-                  <option value="JPY">Japanese Yen (JPY)</option>
-                </select>
-              </div>
               <Button
-                disabled={!(name && amount)}
+                disabled={!(name && amount && !isNaN(amount) && parseFloat(amount) > 0)}
                 onClick={() => onCreateBudget()}
                 className="mt-5 w-full bg-[#3a3a3a] text-white hover:bg-[#555] p-3 rounded-md"
               >
