@@ -7,13 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/dialog.jsx";
 import EmojiPicker from "emoji-picker-react";
-import {db} from "@/utils/dbConfig";
-import { Budgets,Expenses } from "@/utils/schema"; 
+import {db} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/dbConfig.jsx";
+import { Budgets,Expenses } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/schema.jsx"; 
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/alert";
 
 function CreateBudget({ refreshData }) {
   const [emojiIcon, setEmojiIcon] = useState("😄");
