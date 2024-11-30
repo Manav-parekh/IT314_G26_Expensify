@@ -7,13 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/dialog.jsx";
+} from "@/components/ui/dialog";
 import EmojiPicker from "emoji-picker-react";
-import { db } from "../../../../utils/dbConfig.jsx";
-import { Budgets } from "../../../../utils/schema.jsx";
+import {db} from "@/utils/dbConfig";
+import { Budgets,Expenses } from "@/utils/schema"; 
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
-import { Button } from "../../../../../@/components/ui/button.jsx";
+import { Button } from "@/components/ui/button";
 
 function CreateBudget({ refreshData }) {
   const [emojiIcon, setEmojiIcon] = useState("😄");
@@ -109,7 +109,7 @@ function CreateBudget({ refreshData }) {
                   type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  placeholder="e.g. 5000$"
+                  placeholder="e.g. Rs.5000"
                   className="w-full bg-[#333] text-white border-[#555] placeholder-gray-400 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
