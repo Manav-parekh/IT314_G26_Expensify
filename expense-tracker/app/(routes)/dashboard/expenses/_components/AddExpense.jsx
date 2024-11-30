@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { db } from "../../../../utils/dbConfig";
-import moment from "moment";
-import { Budgets, Expenses } from "../../../../utils/schema";
+import { Input } from "@/components/ui/input"; 
+import { Button } from "@/components/ui/button";
+import { db } from "@/utils/dbConfig"; 
+import { Expenses, Budgets } from "@/utils/schema"; 
 import { toast } from "sonner";
-import { Button } from "../../../../../@/components/ui/button";
+import moment from 'moment';
 import { eq } from "drizzle-orm";
-
 
 function AddExpense({ budgetId, user, refreshData }) {
     const [name, setName] = useState('');
@@ -21,7 +21,6 @@ function AddExpense({ budgetId, user, refreshData }) {
       'Cheque'
     ];
   
-    // Function to send notification when budget is exceeded
     const sendNotification = async (budgetName, budgetLimit, currentTotal) => {
       try {
         const response = await fetch('/sendEmail.js', {
@@ -32,7 +31,7 @@ function AddExpense({ budgetId, user, refreshData }) {
           body: JSON.stringify({
             email: user?.primaryEmailAddress?.emailAddress,
             subject: 'Budget Exceeded Alert',
-           
+            
           }),
         });
   
