@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { db } from "C:/Sushi/Project/expense-tracker1/expense-tracker/utils/dbConfig.jsx"; // Adjust the path as per your setup
-import { Events } from "C:/Sushi/Project/expense-tracker1/expense-tracker/utils/schema.jsx"; // Adjust the path as per your setup
+import { db } from "C:/Sushi/Project/expense-tracker1/expense-tracker/utils/dbConfig.jsx"; 
+import { Events } from "C:/Sushi/Project/expense-tracker1/expense-tracker/utils/schema.jsx"; 
 import { eq } from "drizzle-orm";
 import { toast } from "sonner";
-import AddEventModal from "C:/Sushi/Project/expense-tracker1/expense-tracker/app/(routes)/dashboard/events/_components/AddEvents.jsx"; // Path to AddEvents component
-import ConfirmDeleteModal from "C:/Sushi/Project/expense-tracker1/expense-tracker/app/(routes)/dashboard/events/_components/ConfirmDeleteModel.jsx"; // Path to ConfirmDeleteModel
+import AddEventModal from "C:/Sushi/Project/expense-tracker1/expense-tracker/app/(routes)/dashboard/events/_components/AddEvents.jsx"; 
+import ConfirmDeleteModal from "C:/Sushi/Project/expense-tracker1/expense-tracker/app/(routes)/dashboard/events/_components/ConfirmDeleteModel.jsx"; 
 
 const CalendarPage = () => {
   const { user } = useUser();
@@ -72,7 +72,6 @@ const CalendarPage = () => {
     setDeleteModalOpen(false);
   };
 
-  // Get days in the current month
   const getDaysInMonth = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
@@ -80,20 +79,18 @@ const CalendarPage = () => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
     const daysArray = [];
-    // Add empty slots for days before the 1st
     for (let i = 0; i < firstDayOfMonth; i++) {
-      daysArray.push(null); // No date for these days
+      daysArray.push(null); 
     }
-    // Add actual days
+   
     for (let i = 1; i <= daysInMonth; i++) {
       daysArray.push(new Date(year, month, i));
     }
     return daysArray;
   };
 
-  // Check for events happening today and trigger a reminder
   const checkForTodayEvents = () => {
-    const today = new Date().toDateString(); // Get today's date in string format
+    const today = new Date().toDateString(); 
     const todayEvents = events.filter((event) => new Date(event.date).toDateString() === today);
 
     if (todayEvents.length > 0) {
@@ -105,7 +102,7 @@ const CalendarPage = () => {
 
   useEffect(() => {
     if (events.length > 0) {
-      checkForTodayEvents(); // Check for events when the component mounts or events change
+      checkForTodayEvents(); 
     }
   }, [events]);
 
@@ -120,10 +117,8 @@ const CalendarPage = () => {
 
   const days = getDaysInMonth();
 
-  // Render calendar grid with days and events
   const renderCalendarDays = () => {
     return days.map((day, index) => {
-      // Only render valid days (those that are not null)
       if (!day) return <div key={index} className="p-4" />;
 
       const dayEvents = events.filter(
@@ -200,7 +195,6 @@ const CalendarPage = () => {
         {renderCalendarDays()}
       </div>
 
-      {/* Add Event Modal */}
       {isAddEventOpen && (
         <AddEventModal
           onClose={() => setAddEventOpen(false)}
@@ -208,7 +202,6 @@ const CalendarPage = () => {
         />
       )}
 
-      {/* Confirm Delete Modal */}
       {isDeleteModalOpen && (
         <ConfirmDeleteModal
           onClose={() => setDeleteModalOpen(false)}
