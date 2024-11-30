@@ -1,11 +1,11 @@
 "use client"
 import React, { use, useEffect, useState } from "react"
-import CreateBudget from 'app/(routes)/dashboard/budgets/_components/CreateBudget'
-import {db} from "@/utils/dbConfig";
+import CreateBudget from 'C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/(routes)/dashboard/budgets/_components/CreateBudget.jsx'
+import {db} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/dbConfig.jsx";
 import { eq, getTableColumns, sql } from "drizzle-orm";
-import { Budgets,Expenses } from "@/utils/schema"; 
+import { Budgets,Expenses } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/schema.jsx"; 
 import { useUser } from "@clerk/nextjs";
-import BudgetItem from "@/app/(routes)/dashboard/budgets/_components/BudgetItem.jsx";
+import BudgetItem from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/(routes)/dashboard/budgets/_components/BudgetItem.jsx";
 
 function BudgetList() {
     const [budgetList, setbudgetList]=useState([]);
