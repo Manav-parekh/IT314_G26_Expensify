@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "../../../../../@/components/ui/button";
+"use client";
+import React, { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button"; // Updated import path
 import { PenBox } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
-import { db } from "../../../../utils/dbConfig.jsx";
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/dialog.jsx";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"; // Updated import path
 import EmojiPicker from "emoji-picker-react";
+import { useUser } from "@clerk/nextjs";
+import { Input } from "@/components/ui/input"; // Updated import path
+import { db } from "@/utils/dbConfig"; // Updated import path
+import { Budgets } from "@/utils/schema"; // Updated import path
 import { eq } from "drizzle-orm";
-import { Budgets } from "../../../../utils/schema";
 import { toast } from "sonner";
 
 function EditBudget({ budgetInfo, refreshData }) {
