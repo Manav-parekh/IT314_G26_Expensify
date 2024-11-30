@@ -1,5 +1,5 @@
 import React from "react"
-import BudgetList from '@/app/(routes)/dashboard/budgets/_components/BudgetList'
+import BudgetList from 'C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/(routes)/dashboard/budgets/_components/BudgetList'
 function Budget() {
     return (
       <div className='p-10 bg-gradient-to-b from-black via-gray-900 to-gray-950'>
