@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input"; 
-import { Button } from "@/components/ui/button";
-import { db } from "@/utils/dbConfig"; 
-import { Expenses, Budgets } from "@/utils/schema"; 
+import { Button } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/@/components/ui/button";
+import {db} from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/dbConfig.jsx";
+import { Budgets,Expenses } from "C:/Users/Admin/Downloads/expense-tracker/expense-tracker/app/utils/schema.jsx"; 
 import { toast } from "sonner";
 import moment from 'moment';
 import { eq } from "drizzle-orm";
